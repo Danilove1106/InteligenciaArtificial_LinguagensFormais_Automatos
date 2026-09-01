@@ -1749,7 +1749,9 @@ A palavra `aba` pode ser gerada?
 Escreva a derivação completa de `aaaab`.
 
 **Resposta:** 
-$$ S \Rightarrow aS \Rightarrow aaS \Rightarrow aaaS \Rightarrow aaaaS \Rightarrow aaaab $$
+```math
+S \Rightarrow aS \Rightarrow aaS \Rightarrow aaaS \Rightarrow aaaaS \Rightarrow aaaab
+```
 
 ### 7.
 
