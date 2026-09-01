@@ -7,7 +7,7 @@ Exercícios 11/08
 
 
 
-> Introdução aos principais conceitos de **Linguagens Formais, Alfabetos, Cadeias, Linguagens e Gramáticas**.
+> Introdução aos principais conceitos de **Linguagens Formais, Alfabetos, Cadeias, Linguagens e Gramáticas**....
 
 
 
