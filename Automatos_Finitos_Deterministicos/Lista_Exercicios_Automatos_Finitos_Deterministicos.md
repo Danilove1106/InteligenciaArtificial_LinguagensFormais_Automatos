@@ -56,14 +56,24 @@ Complete a tabela:
 
 | Estado atual | Entrada | Próximo estado |
 |---|---|---|
-| Fechado | pessoa_detectada | |
-| Fechado | nenhuma_pessoa | |
-| Aberto | pessoa_detectada | |
-| Aberto | nenhuma_pessoa | |
+| Fechado | pessoa_detectada | Aberto |
+| Fechado | nenhuma_pessoa | Fechado |
+| Aberto | pessoa_detectada | Aberto |
+| Aberto | nenhuma_pessoa | Fechado |
 
 Depois, desenhe o diagrama de estados correspondente e indique o estado inicial.
 
----
+            pessoa_detectada
+        ┌────────────────────────┐
+        │                        ▼
+   ┌──────────┐              ┌──────────┐
+   │ FECHADO  │              │  ABERTO  │
+   └──────────┘              └──────────┘
+        ▲                        │
+        │                        │
+        └────────────────────────┘
+             nenhuma_pessoa
+
 
 # Parte 2 — Anatomia e definição formal
 
@@ -98,15 +108,16 @@ Complete:
 
 | Elemento | Significado |
 |---|---|
-| `Σ` | |
-| `Q` | |
-| `δ` | |
-| `q0` | |
-| `F` | |
+| `Σ` | Entrada |
+| `Q` | Estados |
+| `δ` | 	Mudança de estado |
+| `q0` | 	Estado inicial |
+| `F` | 	Estados finais |
 
 Explique por que esses cinco elementos são suficientes para definir o funcionamento de um AFD.
 
----
+Porque eles dizem quais símbolos existem, quais estados existem, como o AFD muda de estado, onde começa e quais estados aceitam a palavra.
+
 
 # Parte 3 — Tabela de transições e cadeias
 
@@ -173,6 +184,45 @@ Construa um AFD sobre `Σ = {0,1}` que reconheça todas as cadeias que terminam 
 
 Entregue: conjunto de estados, alfabeto, estado inicial, estados finais, tabela, diagrama e teste de pelo menos cinco cadeias.
 
+Q = {q0, q1}
+
+Σ = {0,1}
+
+Estado inicial: q0
+
+Estados finais: F = {q1}
+
+Tabela de transições:
+
+Estado	0	1
+→ q0	q0	q1
+* q1	q0	q1
+
+Diagrama:
+
+→ q0 --1--> q1*
+↑ │
+│ │
+└---0-----┘
+
+q0 --0--> q0
+q1 --1--> q1
+
+Testes:
+
+1 → q0 → q1 → ACEITA
+01 → q0 → q0 → q1 → ACEITA
+101 → q0 → q1 → q0 → q1 → ACEITA
+0001 → q0 → q0 → q0 → q0 → q1 → ACEITA
+1101 → q0 → q1 → q1 → q0 → q1 → ACEITA
+
+ε → q0 → REJEITA
+0 → q0 → q0 → REJEITA
+10 → q0 → q1 → q0 → REJEITA
+100 → q0 → q1 → q0 → q0 → REJEITA
+1110 → q0 → q1 → q1 → q1 → q0 → REJEITA
+
+
 ## Exercício 8 — Número par de símbolos `1`
 
 Construa um AFD sobre `Σ = {0,1}` que reconheça cadeias com quantidade par de símbolos `1`.
@@ -192,17 +242,110 @@ L(M) = {w ∈ {0,1}* | w possui pelo menos dois 0s consecutivos}
 - Devem ser aceitas: `00`, `001`, `100`, `1001`, `110011`, `0000`.
 - Devem ser rejeitadas: `ε`, `0`, `1`, `01`, `10`, `10101`.
 
+  Q = {q0, q1, q2}
+
+Σ = {0,1}
+
+Estado inicial: q0
+
+Estado final: F = {q2}
+
+Tabela de transições:
+
+Estado	0	1
+→ q0	q1	q0
+q1	q2	q0
+* q2	q2	q2
+
+Diagrama:
+
+→ q0 --0--> q1 --0--> q2*
+↑ │ │
+│ 1 │
+└----1-----┘ │
+│
+0,1 ─┘
+
+Testes:
+
+00 → q0 → q1 → q2 → ACEITA
+001 → q0 → q1 → q2 → q2 → ACEITA
+100 → q0 → q0 → q1 → q2 → ACEITA
+1001 → q0 → q0 → q1 → q2 → q2 → ACEITA
+110011 → q0 → q0 → q0 → q1 → q2 → q2 → q2 → ACEITA
+0000 → q0 → q1 → q2 → q2 → q2 → ACEITA
+
+ε → q0 → REJEITA
+0 → q0 → q1 → REJEITA
+1 → q0 → q0 → REJEITA
+01 → q0 → q1 → q0 → REJEITA
+10 → q0 → q0 → q1 → REJEITA
+10101 → q0 → q0 → q1 → q0 → q1 → q0 → REJEITA
+
 Responda antes de construir:
 
-1. O que o estado inicial representa?
-2. O que ocorre quando aparece o primeiro `0`?
-3. O que ocorre quando outro `0` aparece imediatamente depois?
-4. Depois de encontrar `00`, a cadeia pode deixar de ser aceita?
-5. Quantos estados são necessários?
+1. O que o estado inicial representa? O estado inicial representa que ainda não encontramos nenhum 0 consecutivo.
+2. O que ocorre quando aparece o primeiro `0`? Quando aparece o primeiro 0, o autômato vai para um estado que indica que encontramos um 0
+3. O que ocorre quando outro `0` aparece imediatamente depois? Quando outro 0 aparece imediatamente depois, encontramos 00, então o autômato vai para o estado final.
+4. Depois de encontrar `00`, a cadeia pode deixar de ser aceita? Não. Depois de encontrar 00, a cadeia continua sendo aceita, independentemente dos símbolos que aparecem depois.
+5. Quantos estados são necessários? ão necessários 3 estados: um para nenhum 0, um para um único 0 e um estado final para quando encontramos 00.
 
 Apresente a quíntupla, a tabela, o diagrama e os testes.
 
----
+Quíntupla:
+
+M = (Q, Σ, δ, q0, F)
+
+Q = {q0, q1, q2}
+
+Σ = {0,1}
+
+q0 = estado inicial
+
+F = {q2}
+
+Tabela de transições:
+
+Estado	0	1
+→ q0	q1	q0
+q1	q2	q0
+* q2	q2	q2
+
+Diagrama:
+
+→ q0 --0--> q1 --0--> q2*
+↑ │ │
+│ 1 │
+└----1-----┘ 0,1
+│
+↓
+q2
+
+Testes:
+
+00 → q0 → q1 → q2 → ACEITA
+
+001 → q0 → q1 → q2 → q2 → ACEITA
+
+100 → q0 → q0 → q1 → q2 → ACEITA
+
+1001 → q0 → q0 → q1 → q2 → q2 → ACEITA
+
+110011 → q0 → q0 → q0 → q1 → q2 → q2 → q2 → ACEITA
+
+0000 → q0 → q1 → q2 → q2 → q2 → ACEITA
+
+ε → q0 → REJEITA
+
+0 → q0 → q1 → REJEITA
+
+1 → q0 → q0 → REJEITA
+
+01 → q0 → q1 → q0 → REJEITA
+
+10 → q0 → q0 → q1 → REJEITA
+
+10101 → q0 → q0 → q1 → q0 → q1 → q0 → REJEITA
 
 # Parte 5 — Desafios de modelagem
 
@@ -222,16 +365,66 @@ Modele um sistema com as entradas `senha_correta` e `senha_incorreta`. Uma senha
 
 Determine:
 
-1. todos os estados necessários para contar as tentativas;
-2. o alfabeto de entrada;
-3. o estado inicial;
-4. os estados finais;
+1. todos os estados necessários para contar as tentativas; 
+2. o alfabeto de entrada; 
+3. o estado inicial; 
+4. os estados finais; 
 5. todas as transições;
 6. o comportamento após a autenticação e após o bloqueio.
-
+  
 Responda: apenas os estados `Aguardando`, `Autenticado` e `Bloqueado` são suficientes para controlar três tentativas? Justifique e construa o AFD completo.
 
----
+Não. Apenas os estados Aguardando, Autenticado e Bloqueado não são suficientes, pois o sistema precisa distinguir entre 1ª, 2ª e 3ª tentativa incorreta. É necessário guardar a quantidade de tentativas para saber quando bloquear o usuário.
+Quíntupla:
+
+M = (Q, Σ, δ, q0, F)
+
+Q = {q0, q1, q2, qA, qB}
+
+Onde:
+
+q0 = Aguardando, 0 tentativas incorretas
+q1 = Aguardando, 1 tentativa incorreta
+q2 = Aguardando, 2 tentativas incorretas
+qA = Autenticado
+qB = Bloqueado
+
+Σ = {senha_correta, senha_incorreta}
+
+Estado inicial: q0
+
+Estados finais: F = {qA, qB}
+
+Tabela de transições:
+
+Estado	senha_correta	senha_incorreta
+→ q0	qA	q1
+q1	qA	q2
+q2	qA	qB
+*qA	qA	qA
+*qB	qB	qB
+
+Diagrama:
+
+→ q0 --senha_incorreta--> q1 --senha_incorreta--> q2 --senha_incorreta--> qB*
+│ │ │
+│ senha_correta │ senha_correta │ senha_correta
+↓ ↓ ↓
+qA* <────────────────────┴───────────────────────┘
+
+qA --qualquer entrada--> qA
+
+qB --qualquer entrada--> qB
+
+Comportamento:
+
+Uma senha_correta em qualquer estado de tentativa leva para qA (Autenticado).
+A 1ª senha incorreta leva de q0 para q1.
+A 2ª senha incorreta leva de q1 para q2.
+A 3ª senha incorreta leva de q2 para qB (Bloqueado).
+Após a autenticação, o sistema permanece autenticado.
+Após o bloqueio, o sistema permanece bloqueado.
+
 
 # Parte 6 — Prática no JFLAP
 
