@@ -11,12 +11,11 @@
 
 | Campo | Preenchimento |
 |---|---|
-| Turma | |
-| Data | |
-| Integrante 1 | |
-| Integrante 2 | |
-| Integrante 3 | |
-| Integrante 4 | |
+| Turma | N1_3132_-_C.C_(Not) |
+| Data | 01/09/2026 |
+| Integrante 1 | Danilo Hellu Santos Ramos |
+| Integrante 2 | João Paulo De Oliveira Paiva |
+| Integrante 3 | Victor Hugo Valadares Mendonça |
 
 ## Orientações
 
@@ -42,11 +41,17 @@ Ligado    --pressionar--> Desligado
 Responda:
 
 1. Quantos estados existem?
-2. Qual é o estado inicial, considerando que a lâmpada começa apagada?
-3. Qual entrada provoca uma transição?
-4. Partindo de `Desligado`, qual será o estado após um acionamento?
-5. Partindo de `Desligado`, qual será o estado após dois acionamentos?
-6. Explique o funcionamento do sistema com suas palavras.
+   R:2 estados 
+3. Qual é o estado inicial, considerando que a lâmpada começa apagada?
+   R:Desligada
+4. Qual entrada provoca uma transição?
+   R:Pressionar
+5. Partindo de `Desligado`, qual será o estado após um acionamento?
+  R:Ligado
+6. Partindo de `Desligado`, qual será o estado após dois acionamentos?
+   R:Desligado
+7. Explique o funcionamento do sistema com suas palavras.
+   R:O sistema do interruptor funciona de maneira "normal", a cada pressionada ele troca do estado atual para atuar a função desejada "ligado" ou "desligado" para acender ou apagar a lâmpada  
 
 ## Exercício 2 — Porta automática
 
@@ -130,12 +135,26 @@ Considere `Σ = {0,1}`, `Q = {q0,q1,q2}`, estado inicial `q0`, `F = {q1}` e:
 Responda:
 
 1. Qual é o resultado de `δ(q0,0)`?
+  R:q0
 2. Qual é o resultado de `δ(q0,1)`?
+  R:q1
 3. Qual é o resultado de `δ(q1,0)`?
+   R:q2
 4. Qual é o resultado de `δ(q2,1)`?
+  R:q1
 5. Qual é o estado de aceitação?
+  R:q1 F= q1
 6. Desenhe o diagrama correspondente à tabela.
+0
+   +-------+
+   |       v
+-> (q0) --1--> ((q1)) <--0-- [q2]
+                | ^          ^  ^
+                | |          |  |
+                +-1----------+--+ (q2 transita para q1 com 0 e 1)
+
 7. Justifique por que o autômato é determinístico.
+   R:Ele é determinístico porque, para cada estado e para cada entrada (0 ou 1), existe apenas um único destino possível, sem ambiguidades ou opções múltiplas.
 
 ## Exercício 6 — Aceita ou rejeita?
 
@@ -185,10 +204,67 @@ Entregue: conjunto de estados, alfabeto, estado inicial, estados finais, tabela,
 ## Exercício 8 — Número par de símbolos `1`
 
 Construa um AFD sobre `Σ = {0,1}` que reconheça cadeias com quantidade par de símbolos `1`.
+M = (Σ, Q, δ, q0, F)
+
+Σ = {0, 1}
+
+Q = {q0, q1}
+
+q0 = Estado inicial (representa a quantidade par de 1)
+
+F = {q0} (Estado de aceitação)
+
+δ (Função de transição):
+
+δ(q0, 0) = q0
+
+δ(q0, 1) = q1
+
+δ(q1, 0) = q1
+
+δ(q1, 1) = q0
 
 Analise: `ε`, `0`, `1`, `11`, `101`, `1100` e `10101`.
+2. Tabela de Transição
+| δ (estado atual) |0 | 1 |  
+| :---             | :---| :---|
+| -> *q0           | q0 | q1 |
+| q1               | q1 | q0 |
 
 Apresente a definição formal `M = (Σ, Q, δ, q0, F)`, a tabela, o diagrama e o processamento das cadeias. Lembre-se de que basta controlar duas situações: quantidade par ou ímpar de símbolos `1`.
+0                 0
+  |───┐             |───┐
+  ▼   │     1       ▼   │
+►((q0)) ────────► (q1) ─┘
+   ▲                │
+   │        1       │
+   └────────────────┘
+Processamento: Inicia e termina em q0.
+Resultado: q0 -> Aceita
+0
+
+Processamento: q0 --0--> q0
+Resultado: q0 -> Aceita
+1
+
+Processamento: q0 --1--> q1
+Resultado: q1 -> Rejeita
+11
+
+Processamento: q0 --1--> q1 --1--> q0
+Resultado: q0 -> Aceita
+101
+
+Processamento: q0 --1--> q1 --0--> q1 --1--> q0
+Resultado: q0 -> Aceita
+1100
+
+Processamento: q0 --1--> q1 --1--> q0 --0--> q0 --0--> q0
+Resultado: q0 -> Aceita
+10101
+
+Processamento: q0 --1--> q1 --0--> q1 --1--> q0 --0--> q0 --1--> q1
+Resultado: q1 -> Rejeita
 
 ## Exercício 9 — Pelo menos dois zeros consecutivos
 
