@@ -21,6 +21,11 @@ Até o momento, o repositório conta com os estudos da **Unidade 1 - Linguagens 
 
 ## 📁 Estrutura do Repositório
 
+- [`A1_LFA/`](./A1_LFA): **Avaliação A1 — Sistema Especialista Híbrido com Aprendizado Supervisionado (SE-RISK-TRADE)**
+  - Projeto completo desenvolvido por **João Paulo de Oliveira Paiva** e **Danilo Hellu** para a disciplina de Inteligência Artificial e LFA (Profa. Kadidja Valéria).
+  - Integração entre Árvore de Decisão (`DecisionTreeClassifier`) e Motor de Inferência por Encadeamento para Frente com regras baseadas na Resolução CVM nº 35/2021 e B3.
+  - Inclui dataset, código Python modular, testes unitários com pytest, notebook Colab e declaração de ética.
+
 - `Unidade1_LinguagensFormais/`
   - [`Exercícios.md`](./Unidade1_LinguagensFormais/Exercícios.md): Anotações detalhadas (da Aula 02) abordando a introdução a linguagens formais, operadores lógicos e a estruturação de gramáticas.
   - [`Lista1.md`](./Unidade1_LinguagensFormais/Lista1.md): Exercícios comentados e práticos sobre alfabeto, pertinência de símbolos, definição de linguagens e aplicação de produções para derivação em gramáticas.
